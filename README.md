@@ -16,5 +16,5 @@ A collection of simple browser-based games.
 + Crossword puzzle
 
 ## How to Play
-+ Clone this repository/Download the latest release.
-+ In the main folder, open ```index.html``` on your browser.
++ [Open the website](https://bigwblue.github.io/jankyGameShelf/)
++ Alternatively, clone this repository or download the latest release and in the main folder, open ```index.html``` on your browser.
