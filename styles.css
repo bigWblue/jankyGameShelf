@@ -1,0 +1,75 @@
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: hsl(185.3, 45.6%, 24.5%);
+}
+
+#title {
+    color: rgb(255, 255, 255);
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+    width: 80vw;
+    background: rgb(255, 221, 159);
+    border-radius: 15px;
+    margin: auto;
+    padding: 5px;
+}
+
+.game-cards {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #000;
+}
+
+.game-cards img {
+    border-radius: 15px;
+}
+
+.card-btn {
+    border: 2px solid goldenrod;
+    border-radius: 3px;
+    background-color: #153291;
+    color: whitesmoke;
+    width: 75%;
+    height: 30px;
+    margin: 5px;
+    font-size: 23px;
+    font-family: monospace, Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.card-btn:hover {
+    border-color: hsl(43, 74%, 55%);
+    background-color: hsl(226, 75%, 39%);
+    color: hsl(0, 0%, 100%);
+}
+
+.card-btn:active {
+    border-color: hsl(43, 74%, 45%);
+    background-color: hsl(226, 75%, 25%);
+    color: hsl(0, 0%, 92%);
+}
+
+@media (max-width: 600px) {
+    #container {
+        width: 90%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card-btn {
+        font-size: 18px;
+    }
+}

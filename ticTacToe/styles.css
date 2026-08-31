@@ -1,0 +1,166 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    background-color: hsl(180, 1%, 37%);
+}
+
+#middle-container {
+    text-align: center;
+}
+
+#gameboard {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: min(90vw, 450px);
+    aspect-ratio: 1 / 1;
+    gap: 3px;
+}
+
+.square {
+    height: 148px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+
+    font-family: monospace, sans-serif;
+    font-size: clamp(6rem, 9rem, 10rem);
+    color: hsl(0, 0%, 85%);
+    background-color: hsl(0, 0%, 6%);
+    border-radius: 10px;
+}
+
+#reset-btn {
+    margin-top: 15px;
+    width: 55%;
+    height: 50px;
+    font-size: 32px;
+    background-color: hsl(209, 39%, 20%);
+    color: hsl(0, 92%, 61%);
+    border-color: hsl(0, 100%, 50%);
+}
+
+#reset-btn:hover {
+    background-color: hsl(209, 39%, 25%);
+    color: hsl(0, 92%, 67%);
+    border-color: hsl(0, 100%, 58%);
+}
+
+#reset-btn:active {
+    background-color: hsl(209, 39%, 12%);
+    color: hsl(0, 92%, 53%);
+    border-color: hsl(0, 100%, 42%);
+}
+
+#first-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#title {
+    margin-top: 0;
+    font-family: monospace;
+    font-size: clamp(3rem, 4.3rem, 9rem);
+}
+
+#scores-container {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#player-score, #cpu-score {
+    font-family: monospace;
+    font-size: clamp(1rem, 3.5rem, 5rem);
+}
+
+#player-score {
+    color: hsl(240, 100%, 64%);
+}
+
+#cpu-score {
+    color: hsl(0, 98%, 64%);
+}
+
+#player-counter, #cpu-counter {
+    color: white;
+}
+
+#back-btn {
+    background-color: hsl(180, 11%, 14%);
+    color: hsl(0, 0%, 96%);
+    border: 1px solid hsl(0, 0%, 96%);
+    width: 250px;
+    height: 40px;
+}
+
+#back-btn:hover {
+    background-color: hsl(180, 11%, 18%);
+    color: hsl(0, 0%, 99%);
+    border: 1px solid hsl(0, 0%, 99%);
+}
+
+#back-btn:active {
+    background-color: hsl(180, 11%, 10%);
+    color: hsl(0, 0%, 92%);
+    border: 1px solid hsl(0, 0%, 92%);
+}
+
+@media (max-width: 600px) {
+    body {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .square {
+        height: 106px;
+        font-size: 6rem;
+    }
+
+    #title {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-width: 800px) {
+    body {
+        display: flex;
+        flex-direction: row;
+        height: 1vh;
+    }
+
+    #gameboard {
+        width: 348px;
+        height: 100%;
+    }
+
+    .square {
+        height: 114px;
+    }
+
+    #middle-container {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    #title {
+        font-size: 2.5rem;
+    }
+
+    #reset-btn {
+        position: absolute;
+        top: 60px;
+        right: -15px;
+        width: 20%;
+        height: 25px;
+        font-size: 16px;
+        rotate: 90deg;
+    }
+}
