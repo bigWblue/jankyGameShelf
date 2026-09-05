@@ -2,11 +2,15 @@ const gameboard = document.getElementById('gameboard');
 
 const resetBtn = document.getElementById('reset-btn');
 
-const playerCounter = document.getElementById('player-counter');
-const computerCounter = document.getElementById('cpu-counter');
+const gameModeCheckbox = document.getElementById('game-mode-checkbox');
+const gameMode = document.getElementById('game-mode');
+
+const playerScore = document.getElementById('player-score');
+let playerCounter = document.getElementById('player-counter');
+const computerScore = document.getElementById('cpu-score');
+let computerCounter = document.getElementById('cpu-counter');
 
 function resetSquares() {
-    playerTurn = true;
     gameOver = false;
     for (let i = 0; i <= 8; i++) {
         board[i] = '';
@@ -17,21 +21,114 @@ function resetSquares() {
     }
 }
 
+function switchGameMode() {
+    if (gameModeCheckbox.checked) {
+        gameMode.textContent = 'Single';
+        playerScore.innerHTML = playerScore.innerHTML.replace('Player 1:', 'Player:');
+        computerScore.innerHTML = computerScore.innerHTML.replace('Player 2:', 'Computer:');
+    } else {
+        gameMode.textContent = 'Two';
+        playerScore.innerHTML = playerScore.innerHTML.replace('Player:', 'Player 1:');
+        computerScore.innerHTML = computerScore.innerHTML.replace('Computer:', 'Player 2:');
+    }
+    playerCounter = document.getElementById('player-counter');
+    computerCounter = document.getElementById('cpu-counter');
+}
+
+function getWinner() {
+    let winner = null;
+    const winCheck = checkWin();
+
+    if (winCheck.victory) {
+        winner = board[winCheck.line[0]]
+    }
+    return winner;
+}
+
+function minimax(board, depth, isComputer) {
+    const winner = getWinner();
+
+    if (winner === 'O') {
+        return 10 - depth;
+    }
+    if (winner === 'X') {
+        return depth - 10;
+    }
+    if (!winner && board.every(square => square !== '')) {
+        return 0;
+    }
+
+    if (isComputer) {
+        let bestScore = -Infinity;
+
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+                board[i] = 'O';
+
+                const score = minimax(board, depth + 1, false);
+
+                board[i] = '';
+                bestScore = Math.max(bestScore, score);
+            }
+        }
+        return bestScore;
+    } else {
+        let bestScore = Infinity;
+
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+                board[i] = 'X';
+                const score = minimax(board, depth + 1, true);
+
+                board[i] = '';
+                bestScore = Math.min(bestScore, score);
+            }
+        }
+        return bestScore;
+    }
+}
+
+function getBestMove() {
+    let bestScore = -Infinity;
+    let bestMove = null;
+
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === '') {
+            board[i] = 'O';
+
+            const score = minimax(board, 0, false);
+
+            board[i] = '';
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestMove = i;
+            }
+        }
+    }
+    return bestMove;
+}
+
 function computerMove() {
     if (gameOver) return;
 
-    let isSquareEmpty = false;
-    let randInt = null;
-    while (!isSquareEmpty) {
-        randInt = Math.floor(Math.random() * (8 + 1));
-        if (!board[randInt]) {
-            isSquareEmpty = true;
+    const randMove = () => {
+        let num = null;
+        while (true) {
+            const rand = Math.floor(Math.random() * board.length);
+            if (board[rand] === '') {
+                num = rand;
+                break;
+            }
         }
-    }
-
-    const randSquare = document.querySelector(`.square-${randInt}`);
-    const move = makeMove(randSquare, randInt);
-    board[randInt] = move;
+        return num;
+    };
+    const bestMove = getBestMove();
+    const randChoice = [bestMove, bestMove, bestMove, randMove()][Math.floor(Math.random() * 4)];
+    
+    const randSquare = document.querySelector(`.square-${randChoice}`);
+    const move = makeMove(randSquare, randChoice);
+    board[randChoice] = move;
 
     const winCheck = checkWin();
     if (winCheck.victory) {
@@ -40,7 +137,6 @@ function computerMove() {
     if (board.every(square => square !== '') && !winCheck.victory) {
         handleTie();
     }
-    return randSquare;
 }
 
 function handleVictory(winLine) {
@@ -72,7 +168,7 @@ function handleGameOver(line = [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
 }
 
 function updateScore(scorer) {
-    const scoreInt = Number(scorer.textContent)
+    const scoreInt = Number(scorer.textContent);
     scorer.textContent = scoreInt + 1;
 }
 
@@ -118,36 +214,56 @@ const board = [
 let playerTurn = true;
 let gameOver = false;
 
+const beep = new Audio('./assets/universfield-ui-button-click-147358.mp3');
+const opponentBeep = new Audio('./assets/audiomass-output-opponent.mp3');
+
 for (let i = 0; i <= 8; i++) {
     const square = document.querySelector(`.square-${i}`);
 
     square.addEventListener('click', () => {
-        if (gameOver || !playerTurn) return;
-
+        if (gameOver || (!playerTurn && gameModeCheckbox.checked)) return;
+        
         const move = makeMove(square, i);
         if (!move) return;
         board[i] = move;
 
         const winCheck = checkWin();
+
         if (winCheck.victory) {
             handleVictory(winCheck.line);
             return;
+        } else {
+            playerTurn ? beep.play() : opponentBeep.play();
         }
         if (board.every(square => square !== '') && !winCheck.victory) {
             handleTie();
             return;
         }
-        playerTurn = false;
-        setTimeout(() => {
-            computerMove();
-            playerTurn = true;
-        }, 290);
+        if (gameModeCheckbox.checked) {
+            playerTurn = false;
+            setTimeout(() => {
+                computerMove();
+                opponentBeep.play();
+                playerTurn = true;
+            }, 290);
+        } else {
+            playerTurn = !playerTurn;
+        }
     });
 }
 
 resetBtn.addEventListener('click', () => {
     resetSquares();
+    playerTurn = true;
     [playerCounter, computerCounter].forEach(counter => {
         counter.textContent = 0;
     })
+})
+
+gameModeCheckbox.addEventListener('click', () => {
+    resetSquares();
+    [playerCounter, computerCounter].forEach(counter => {
+        counter.textContent = 0;
+    })
+    switchGameMode();
 })
