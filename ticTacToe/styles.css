@@ -76,6 +76,12 @@ body {
     flex-direction: column;
 }
 
+#game-mode-label {
+    font-family: monospace;
+    font-size: 17px;
+    color: whitesmoke;
+}
+
 #player-score, #cpu-score {
     font-family: monospace;
     font-size: clamp(1rem, 3.5rem, 5rem);
@@ -117,6 +123,10 @@ body {
     body {
         display: flex;
         flex-direction: column-reverse;
+    }
+
+    #gameboard {
+        width: min(85vw, 450px)
     }
 
     .square {
