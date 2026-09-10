@@ -1,4 +1,4 @@
-const canvas = document.getElementById('game'); // width and height are 600
+const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d')
 
 const infiniteCheckbox = document.getElementById('infinite-mode-checkbox');
@@ -27,6 +27,8 @@ let pendingDir = 'ArrowUp';
 let lastTime = 0;
 let accumulator = 0;
 let stepMs = 55;
+const viewportDimensions = {width: window.innerWidth, height: window.innerHeight};
+let isMobilePhone = viewportDimensions.width < 800;
 
 const dirs = {
     'ArrowLeft': {x: -1, y: 0},
@@ -35,13 +37,93 @@ const dirs = {
     'ArrowDown': {x: 0, y: 1}
 }
 
+if (viewportDimensions.width > 800) {
+    window.addEventListener('keydown', e => {
+        const keyPressed = e.key;
+        if (keyPressed === 'r') {
+            resetGame()
+        }
+        else if (Object.keys(dirs).includes(keyPressed)) {
+            const oppositeDirs = {
+                'ArrowLeft': 'ArrowRight',
+                'ArrowUp': 'ArrowDown',
+                'ArrowRight': 'ArrowLeft',
+                'ArrowDown': 'ArrowUp'
+            };
+            if (currentDir !== oppositeDirs[keyPressed]) {
+                pendingDir = keyPressed;
+            }
+        }
+        else if (keyPressed === ' ' && !isRunning) {
+            accumulator = 0;
+            lastTime = performance.now();
+            isRunning = true;
+        }
+        else {
+            //do nothing
+        }
+    })
+}
+else {
+    stepMs = 65;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let swipeDistance = 20;
 
-window.addEventListener('keydown', e => {
-    const keyPressed = e.key;
-    if (keyPressed === 'r') {
-        resetGame()
-    }
-    else if (Object.keys(dirs).includes(keyPressed)) {
+    canvas.addEventListener('touchstart', e => {
+        e.preventDefault();
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+    })
+    canvas.addEventListener('touchend', e => {
+        e.preventDefault();
+        const finalTouchX = e.changedTouches[0].clientX;
+        const finalTouchY = e.changedTouches[0].clientY;
+        const horizontalDistance = finalTouchX - touchStartX;
+        const verticalDistance = finalTouchY - touchStartY;
+
+        const isTap = 
+        Math.abs(horizontalDistance) < swipeDistance && 
+        Math.abs(verticalDistance) < swipeDistance;
+
+        if (isTap) {
+            if (gameOver) {
+                resetGame();
+            }
+            else if (!isRunning) {
+                accumulator = 0;
+                lastTime = performance.now();
+                isRunning = true;
+            }
+            return;
+        }
+
+        let possibleDirection;
+        if (Math.abs(horizontalDistance) > Math.abs(verticalDistance)) {
+            if (horizontalDistance > 0) {
+                possibleDirection = 'ArrowRight';
+            } else {
+                possibleDirection = 'ArrowLeft';
+            }
+        } else {
+            if (verticalDistance > 0) {
+                possibleDirection = 'ArrowDown';
+            } else {
+                possibleDirection = 'ArrowUp';
+            }
+        }
+
+        const oppositeDirs = {
+            'ArrowLeft': 'ArrowRight',
+            'ArrowUp': 'ArrowDown',
+            'ArrowRight': 'ArrowLeft',
+            'ArrowDown': 'ArrowUp'
+        };
+        if (currentDir !== oppositeDirs[possibleDirection]) {
+            pendingDir = possibleDirection;
+        }
+    })
+    /*else if (Object.keys(dirs).includes(keyPressed)) {
         const oppositeDirs = {
             'ArrowLeft': 'ArrowRight',
             'ArrowUp': 'ArrowDown',
@@ -59,8 +141,8 @@ window.addEventListener('keydown', e => {
     }
     else {
         //do nothing
-    }
-})
+    }*/
+}
 
 function resetGame() {
     accumulator = 0;
@@ -141,7 +223,8 @@ function drawStartScreen() {
 
     ctx.font = '29px monospace'
     ctx.fillStyle = 'whitesmoke';
-    ctx.fillText('Press space to start', canvas.width / 4, canvas.height / 2)
+    const screenStartText = isMobilePhone ? 'Tap to start' : 'Press space to start';
+    ctx.fillText(screenStartText, canvas.width / 4, canvas.height / 2)
 }
 
 function drawGameOver() {
@@ -154,7 +237,8 @@ function drawGameOver() {
 
     ctx.font = '20px monospace';
     ctx.fillStyle = 'whitesmoke';
-    ctx.fillText('Press (r) to restart', 190, 330)
+    const screenRestartText = isMobilePhone ? 'Tap to restart' : 'Press (r) to restart';
+    ctx.fillText(screenRestartText, 190, 330)
 }
 
 function drawScore(score) {
