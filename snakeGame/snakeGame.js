@@ -123,25 +123,6 @@ else {
             pendingDir = possibleDirection;
         }
     })
-    /*else if (Object.keys(dirs).includes(keyPressed)) {
-        const oppositeDirs = {
-            'ArrowLeft': 'ArrowRight',
-            'ArrowUp': 'ArrowDown',
-            'ArrowRight': 'ArrowLeft',
-            'ArrowDown': 'ArrowUp'
-        };
-        if (currentDir !== oppositeDirs[keyPressed]) {
-            pendingDir = keyPressed;
-        }
-    }
-    else if (keyPressed === ' ' && !isRunning) {
-        accumulator = 0;
-        lastTime = performance.now();
-        isRunning = true;
-    }
-    else {
-        //do nothing
-    }*/
 }
 
 function resetGame() {
