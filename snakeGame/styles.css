@@ -72,3 +72,22 @@ body {
     color: hsl(0, 0%, 92%);
     border: 1px solid hsl(43, 74%, 46%);
 }
+
+@media (max-width: 600px) {
+    body {
+        display: flex;
+        flex-wrap: wrap-reverse;
+    }
+
+    #game {
+        width: 300px;
+        height: 300px;
+        margin: auto;
+    }
+
+    #title-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
