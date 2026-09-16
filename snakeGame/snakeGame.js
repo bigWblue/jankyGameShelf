@@ -30,6 +30,8 @@ let stepMs = 55;
 const viewportDimensions = {width: window.innerWidth, height: window.innerHeight};
 let isMobilePhone = viewportDimensions.width < 800;
 
+const fruitSound = new Audio('./assets/coin.wav');
+
 const dirs = {
     'ArrowLeft': {x: -1, y: 0},
     'ArrowUp': {x: 0, y: -1},
@@ -254,6 +256,7 @@ function step() {
 
     if (newHead.x === foodGridXY.x && newHead.y === foodGridXY.y) {
         score += 1;
+        fruitSound.play()
         foodGridXY = randFoodGrid();
     }
     else {
