@@ -5,6 +5,8 @@
 
 A version of hangman to play on the computer or mobile browser.
 
+<a href="https://bigwblue.github.io/jankyGameShelf/hangman/index.html" target="_blank">Click here to play</a>
+
 ## Words
 + The first 150 pokémon
 
