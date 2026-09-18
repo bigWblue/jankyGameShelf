@@ -5,10 +5,10 @@
 
 A collection of simple browser-based games.
 
-## Games Available
-+ Snake
-+ Tic-Tac-Toe
-+ Hangman
+## Available Games
++ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/snakeGame/README.md">Snake</a>
++ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/ticTacToe/README.md">Tic-Tac-Toe</a>
++ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/hangman/README.md">Hangman</a>
 
 ## Future Game Ideas
 + Pong
