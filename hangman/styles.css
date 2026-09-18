@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e4e0a6;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+#first-container {
+    text-align: center;
+}
+
+#title {
+    font-family: Helvetica, sans-serif;
+    font-size: 3rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+#back-btn {
+    background-color: hsl(180, 100%, 12%);
+    color: hsl(0, 0%, 100%);
+    border: 1px solid hsl(22, 100%, 60%);
+    width: 250px;
+    height: 40px;
+}
+
+#back-btn:hover {
+    background-color: hsl(180, 100%, 17%);
+    color: hsl(0, 0%, 99%);
+    border: 1px solid hsl(22, 100%, 67%);
+}
+
+#back-btn:active {
+    background-color: hsl(180, 100%, 10%);
+    color: hsl(0, 0%, 92%);
+    border: 1px solid hsl(22, 100%, 53%);
+}
+
+#middle-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+#target-word-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+.target-letter {
+    width: 50px;
+    height: 67px;
+
+    margin-top: 3px;
+    padding: 9px;
+
+    border: 2px solid black;
+    border-radius: 5px;
+
+    font-size: 2.4rem;
+    font-family: monospace, sans-serif;
+    font-weight: 600;
+
+    user-select: none;
+    background-color: whitesmoke;
+}
+
+#hangman-drawing-container {
+    background-color: whitesmoke;
+}
+
+.gallows {
+    stroke: #301b1b;
+    stroke-width: 4;
+}
+
+#stickman-head {
+    stroke: #000000;
+    stroke-width: 5;
+    fill: white;
+}
+
+#stickman-body {
+    stroke: #000000;
+    stroke-width: 7;
+    stroke-linecap: round;
+}
+
+#stickman-left-arm, #stickman-right-arm, #stickman-left-leg, #stickman-right-leg {
+    stroke: #000000;
+    stroke-width: 5;
+    stroke-linecap: round;
+}
+
+#reset-btn {
+    margin: auto;
+    width: 50%;
+    height: 27px;
+
+    background-color: hsl(51, 100%, 50%);
+    border: 1px solid hsl(16, 100%, 50%);
+    border-radius: 10px;
+    font-family: monospace, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+#reset-btn:hover {
+    background-color: hsl(51, 100%, 58%);
+    border: 1px solid hsl(16, 100%, 58%);
+}
+
+#reset-btn:active {
+    background-color: hsl(51, 100%, 42%);
+    border: 1px solid hsl(16, 100%, 42%);
+}
+
+.hidden {
+    display: none;
+}
+
+#keyboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 3px;
+}
+
+.keyboard-letter {
+    width: 2.2rem;
+    height: 1.9rem;
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+.blank {
+    background-color: lightgrey;
+    color: lightgrey;
+}
+
+.correct-letter {
+    background-color: green;
+    color: white;
+}
+
+.wrong-letter {
+    background-color: red;
+    color: whitesmoke;
+}
+
+@media (max-width: 600px) {
+    body {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Hangman</title>
+</head>
+<body>
+    <div id="first-container">
+        <h1 id="title">Hangman</h1>
+        <a href="../index.html">
+            <button id="back-btn">⬅ Go Back</button>
+        </a>
+    </div>
+    <div id="middle-container">
+        <div id="target-word-container"></div>
+        <div id="hangman-drawing-container">
+            <svg id="hangman-drawing" width="300" height="300">
+                <line class="gallows" x1="15" x2="285" y1="290" y2="290"></line>
+                <line class="gallows" x1="75" x2="75" y1="15" y2="290"></line>
+                <line class="gallows" x1="73" x2="240" y1="15" y2="15"></line>
+                <line class="gallows" x1="240" x2="240" y1="13" y2="50"></line>
+                <circle id="stickman-head" class="hidden" r="30" cx="240" cy="80"></circle>
+                <line id="stickman-body" class="hidden" x1="240" x2="240" y1="111" y2="200"></line>
+                <line id="stickman-left-arm" class="hidden" x1="238" x2="215" y1="121" y2="180"></line>
+                <line id="stickman-right-arm" class="hidden" x1="242" x2="263" y1="121" y2="180"></line>
+                <line id="stickman-left-leg" class="hidden" x1="238" x2="227" y1="200" y2="270"></line>
+                <line id="stickman-right-leg" class="hidden" x1="242" x2="253" y1="200" y2="270"></line>
+            </svg>
+        </div>
+        <button id="reset-btn" class="hidden" >Play Again</button>
+        <div id="keyboard-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
