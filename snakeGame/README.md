@@ -4,6 +4,8 @@
 
 A rendition of the classic Snake game using the Canvas API.
 
+<a href="https://bigwblue.github.io/jankyGameShelf/snakeGame/index.html" target="_blank">Click here to play</a>
+
 ## How to play
 + Use the Arrow Keys to change the direction of the snake
 + Collect the red dot to increase your score
@@ -11,5 +13,5 @@ A rendition of the classic Snake game using the Canvas API.
 + Optional: Enable infinite mode to automatically restart after every crash
 
 ## Ideas
-+ Optimize the game to run on mobile and tablets
++ Optimize the game to run on mobile and tablets ✔️
 + Add new ways to score and additional constraints
