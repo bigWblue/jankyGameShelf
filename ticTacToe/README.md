@@ -4,6 +4,8 @@
 
 A version of tic-tac-toe to play on the computer or mobile browser.
 
+<a href="https://bigwblue.github.io/jankyGameShelf/ticTacToe/index.html" target="_blank">Click here to play</a>
+
 ## How to play
 + Default mode is single player, uncheck the box if you want to pick every move.
 + Click/tap on any square to place your symbol
