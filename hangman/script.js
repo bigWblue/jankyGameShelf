@@ -3,6 +3,8 @@ const keyboardContainer = document.getElementById('keyboard-container');
 const hangmanDrawingContainer = document.getElementById('hangman-drawing-container');
 let hangmanDrawing = document.getElementById('hangman-drawing');
 
+let currTheme = document.getElementById('select-theme');
+
 const resetBtn = document.getElementById('reset-btn');
 
 const correctGuessSound = new Audio('./assets/universfield-menu-click-cropped.mp3');
@@ -43,160 +45,32 @@ function resetGame() {
     generateTargetWord();
 }
 
-function generateTargetWord() {
-    const targetWordsArr = [
-        'Electrode',
-        'Diglett',
-        'Nidoran',
-        'Mankey',
-        'Venusaur',
-        'Rattata',
-        'Fearow',
-        'Pidgey',
-        'Seaking',
-        'Jolteon',
-        'Dragonite',
-        'Gastly',
-        'Ponyta',
-        'Vaporeon',
-        'Poliwrath',
-        'Butterfree',
-        'Venomoth',
-        'Poliwag',
-        'Nidorino',
-        'Golduck',
-        'Ivysaur',
-        'Grimer',
-        'Victreebel',
-        'Moltres',
-        'Nidoking',
-        'Farfetchd',
-        'Abra',
-        'Jigglypuff',
-        'Kingler',
-        'Rhyhorn',
-        'Clefable',
-        'Wigglytuff',
-        'Zubat',
-        'Primeape',
-        'Meowth',
-        'Onix',
-        'Geodude',
-        'Rapidash',
-        'Magneton',
-        'Snorlax',
-        'Gengar',
-        'Tangela',
-        'Goldeen',
-        'Spearow',
-        'Weezing',
-        'Seel',
-        'Gyarados',
-        'Slowbro',
-        'Kabuto',
-        'Persian',
-        'Paras',
-        'Horsea',
-        'Raticate',
-        'Magnemite',
-        'Kadabra',
-        'Weepinbell',
-        'Ditto',
-        'Cloyster',
-        'Caterpie',
-        'Sandshrew',
-        'Bulbasaur',
-        'Charmander',
-        'Golem',
-        'Pikachu',
-        'Alakazam',
-        'Doduo',
-        'Venonat',
-        'Machoke',
-        'Kangaskhan',
-        'Hypno',
-        'Electabuzz',
-        'Flareon',
-        'Blastoise',
-        'Poliwhirl',
-        'Oddish',
-        'Drowzee',
-        'Raichu',
-        'Nidoqueen',
-        'Bellsprout',
-        'Starmie',
-        'Metapod',
-        'Marowak',
-        'Kakuna',
-        'Clefairy',
-        'Dodrio',
-        'Seadra',
-        'Vileplume',
-        'Krabby',
-        'Lickitung',
-        'Tauros',
-        'Weedle',
-        'Nidoran',
-        'Machop',
-        'Shellder',
-        'Porygon',
-        'Hitmonchan',
-        'Articuno',
-        'Jynx',
-        'Nidorina',
-        'Beedrill',
-        'Haunter',
-        'Squirtle',
-        'Chansey',
-        'Parasect',
-        'Exeggcute',
-        'Muk',
-        'Dewgong',
-        'Pidgeotto',
-        'Lapras',
-        'Vulpix',
-        'Rhydon',
-        'Charizard',
-        'Machamp',
-        'Pinsir',
-        'Koffing',
-        'Dugtrio',
-        'Golbat',
-        'Staryu',
-        'Magikarp',
-        'Ninetales',
-        'Ekans',
-        'Omastar',
-        'Scyther',
-        'Tentacool',
-        'Dragonair',
-        'Magmar',
-        'Sandslash',
-        'Hitmonlee',
-        'Psyduck',
-        'Arcanine',
-        'Eevee',
-        'Exeggutor',
-        'Kabutops',
-        'Zapdos',
-        'Dratini',
-        'Growlithe',
-        'Mrmime',
-        'Cubone',
-        'Graveler',
-        'Voltorb',
-        'Gloom',
-        'Charmeleon',
-        'Wartortle',
-        'Mewtwo',
-        'Tentacruel',
-        'Aerodactyl',
-        'Omanyte',
-        'Slowpoke',
-        'Pidgeot',
-        'Arbok'
-    ];
+async function fetchWordArrs() {
+    try {
+        const response = await fetch('./wordLists.json');
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data
+    } catch(error) {
+        console.log('Error fetching words')
+        throw error;
+    }
+}
 
+function getWordArr() {
+    currTheme = document.getElementById('select-theme');
+    return fetchWordArrs().then(parsedObj => {
+        const chosenArr = parsedObj[currTheme.value];
+        return chosenArr;
+    }).catch(error => console.error(error));
+}
+
+
+async function generateTargetWord() {
+    const targetWordsArr = await getWordArr();
+    
     const randomIndex = () => {
         while (true) {
             const randTry = Math.floor(Math.random() * targetWordsArr.length);
@@ -341,8 +215,17 @@ for (key of keyboardKeys) {
     key.addEventListener('click', handleKeyPressed);
 }
 
+currTheme.addEventListener('change', () => {
+    resetGame();
+    currTheme.blur();
+})
+resetBtn.addEventListener('click', resetGame);
+
 window.addEventListener('keydown', e => {
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    if (e.key === 'Enter') {
+        resetGame();
+    }
     if (!alphabet.includes(e.key)) return;
 
     const keyPressedUppercase = e.key.toUpperCase();
@@ -356,5 +239,3 @@ window.addEventListener('keydown', e => {
         }
     }
 })
-
-resetBtn.addEventListener('click', resetGame);
