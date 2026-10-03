@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="first-container">
+        <h1 id="title">Simon Says</h1>
+        <a href="../index.html">
+            <button id="back-btn">⬅ Go Back</button>
+        </a>
+    </div>
+    <div id="middle-container">
+        <div id="score-container">
+            <span id="score">0</span>
+        </div>
+        <div id="simon-container">
+            <button id="simon-btn-1" class="simon-btn btn-1-base-color"></button>
+            <button id="simon-btn-2" class="simon-btn btn-2-base-color"></button>
+            <button id="simon-btn-3" class="simon-btn btn-3-base-color"></button>
+            <button id="simon-btn-4" class="simon-btn btn-4-base-color"></button>
+        </div>
+        <button id="start-btn">START</button>
+        <span id="high-score" class="hidden">High score: 0</span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
