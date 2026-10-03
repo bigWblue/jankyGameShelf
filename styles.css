@@ -35,6 +35,8 @@ body {
 }
 
 .game-cards img {
+    height: 265px;
+    width: 265px;
     border-radius: 15px;
 }
 
@@ -71,5 +73,10 @@ body {
 
     .card-btn {
         font-size: 18px;
+    }
+
+    .game-cards img {
+        height: 155px;
+        width: 155px;
     }
 }
