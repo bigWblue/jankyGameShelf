@@ -9,6 +9,7 @@ A collection of simple browser-based games.
 + <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/snakeGame/README.md">Snake</a>
 + <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/ticTacToe/README.md">Tic-Tac-Toe</a>
 + <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/hangman/README.md">Hangman</a>
++ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/simonSays/README.md">Simon Says</a>
 
 ## Future Game Ideas
 + Pong
