@@ -16,6 +16,7 @@ A collection of simple browser-based games.
 + Arkanoid
 + 2D endless runner
 + Crossword puzzle
++ Sudoku
 
 ## How to Play
 + <a href="https://bigwblue.github.io/jankyGameShelf/" target="_blank">Open the Website</a>
