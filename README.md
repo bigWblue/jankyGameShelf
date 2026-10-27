@@ -10,9 +10,9 @@ A collection of simple browser-based games.
 + <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/ticTacToe/README.md">Tic-Tac-Toe</a>
 + <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/hangman/README.md">Hangman</a>
 + <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/simonSays/README.md">Simon Says</a>
++ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/pong/README.md">Pong</a>
 
 ## Future Game Ideas
-+ Pong
 + Arkanoid
 + 2D endless runner
 + Crossword puzzle
