@@ -10,7 +10,6 @@ A version of the classic Pong game using the canvas API.
 + Try to get the ball past the computer paddle to score
 + The first to reach 10 points wins
 
-## Notes
-+ A few issues with bouncing to be corrected
-+ Only mode available is against the computer
-+ No styling for mobile was done so far
+## Ideas
++ Add way to playing locally against other human player
++ Make game playable on mobile
