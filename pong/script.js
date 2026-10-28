@@ -1,6 +1,10 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d')
 
+const paddleBounceSound = new Audio('./assets/paddleBounce.mp3');
+const playerScoreSound = new Audio('./assets/playerScores.wav');
+const computerScoreSound = new Audio('./assets/computerScores.wav');
+
 const startBtn = document.getElementById('start-btn');
 
 const gridSize = 40;
@@ -10,7 +14,7 @@ const paddleWidth = cellSize;
 const paddleHeight = cellSize * 4;
 const paddleOffset = 2;
 
-const paddleSpeed = 5;
+const paddleSpeed = 7;
 const ballSpeed = 10;
 
 let playerScore = 0;
@@ -128,9 +132,10 @@ function handleBounce(paddle, direction) {
     const paddleCenter = paddle.position.y + paddleHeight / 2;
     const ballCenter = ball.position.y + ball.size.height / 2;
     
-    const bouncePoint = (ballCenter - paddleCenter) / 2;
-    const angle = bouncePoint * Math.PI / 3;
-
+    const bouncePointOffset = (ballCenter - paddleCenter) / (paddleHeight / 2);
+    const normalizedBouncePoint = Math.max(-1, Math.min(1, bouncePointOffset));
+    const angle = normalizedBouncePoint * Math.PI / 3;
+    
     ball.velocity.x = direction * ballSpeed * Math.cos(angle);
     ball.velocity.y = ballSpeed * Math.sin(angle);
 }
@@ -159,18 +164,20 @@ function handleCollision() {
                              ball.position.y <= paddle2.position.y + paddleHeight;
 
     if (paddle1Collision && ball.velocity.x < 0) {
-        ball.position.x = paddle1.position.x + paddleWidth;
+        ball.position.x = paddle1.position.x + paddleWidth + 1;
         handleBounce(paddle1, 1);
+        paddleBounceSound.play();
     } else if (paddle2Collision && ball.velocity.x > 0) {
-        ball.position.x = paddle2.position.x;
+        ball.position.x = paddle2.position.x - 1;
         handleBounce(paddle2, -1);
+        paddleBounceSound.play();
     }
 }
 
 function movePaddle2() {
     const ballCenter = ball.position.y + ball.size.height / 2;
     const paddleCenter = paddle2.position.y + paddleHeight / 2;
-
+    
     if (ballCenter > paddleCenter) {
         paddle2.position.y += paddleSpeed;
     } else if (ballCenter < paddleCenter) {
@@ -186,9 +193,11 @@ function update() {
 
     if (ball.position.x < 0) {
         computerScore += 1;
+        computerScoreSound.play();
         resetBall();
     } else if (ball.position.x > canvas.width) {
         playerScore += 1;
+        playerScoreSound.play()
         resetBall();
     }
 }
