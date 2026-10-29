@@ -108,16 +108,16 @@ function drawScore() {
 }
 
 function handleVictory() {
-    if (playerScore === 10 || computerScore === 10) {
+    if (playerScore === 5 || computerScore === 5) {
         startBtn.classList.remove('hidden');
         startBtn.textContent = 'Play again';
         ctx.fillStyle = '#0a0a0a';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         let victoryText = ' wins!';
-        if (playerScore === 10) {
+        if (playerScore === 5) {
             victoryText = 'Player' + victoryText;
-        } else if (computerScore === 10) {
+        } else if (computerScore === 5) {
             victoryText = 'Computer' + victoryText;
         }
 
@@ -162,12 +162,15 @@ function handleCollision() {
     const paddle2Collision = ball.position.x + ball.size.width >= paddle2.position.x &&
                              ball.position.y >= paddle2.position.y - ball.size.height &&
                              ball.position.y <= paddle2.position.y + paddleHeight;
+    
+    const isBeyondPaddle1 = ball.position.x + ball.size.width <= paddle1.position.x - paddleWidth / 2;
+    const isBeyondPaddle2 = ball.position.x + ball.size.width >= paddle2.position.x + paddleWidth / 2;
 
-    if (paddle1Collision && ball.velocity.x < 0) {
+    if (paddle1Collision && ball.velocity.x < 0 && !isBeyondPaddle1) {
         ball.position.x = paddle1.position.x + paddleWidth + 1;
         handleBounce(paddle1, 1);
         paddleBounceSound.play();
-    } else if (paddle2Collision && ball.velocity.x > 0) {
+    } else if (paddle2Collision && ball.velocity.x > 0 && !isBeyondPaddle2) {
         ball.position.x = paddle2.position.x - 1;
         handleBounce(paddle2, -1);
         paddleBounceSound.play();
@@ -179,9 +182,19 @@ function movePaddle2() {
     const paddleCenter = paddle2.position.y + paddleHeight / 2;
     
     if (ballCenter > paddleCenter) {
-        paddle2.position.y += paddleSpeed;
+        if (paddle2.position.y > canvas.height - paddleHeight) {
+            paddle2.position.y = canvas.height - paddleHeight;
+        } else {
+            paddle2.position.y += paddleSpeed;
+        }
+        
     } else if (ballCenter < paddleCenter) {
-        paddle2.position.y -= paddleSpeed;
+        if (paddle2.position.y < 0) {
+            paddle2.position.y = 0;
+        } else {
+            paddle2.position.y -= paddleSpeed;
+        }
+        
     }
 }
 
