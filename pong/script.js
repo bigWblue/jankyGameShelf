@@ -15,7 +15,7 @@ const paddleHeight = cellSize * 4;
 const paddleOffset = 2;
 
 const paddleSpeed = 7;
-const ballSpeed = 10;
+const ballSpeed = 9;
 
 let playerScore = 0;
 let computerScore = 0;
@@ -233,32 +233,51 @@ function drawGame() {
     }
 }
 
-document.addEventListener('keydown', e => {
-    if (e.key === 'w') {
-        if (paddle1.dy < -paddleSpeed) {
-            paddle1.dy = -paddleSpeed;
-        } else {
-            paddle1.dy -= paddleSpeed;
+if (window.innerWidth > 800){
+    document.addEventListener('keydown', e => {
+        if (e.key === 'w') {
+            if (paddle1.dy < -paddleSpeed) {
+                paddle1.dy = -paddleSpeed;
+            } else {
+                paddle1.dy -= paddleSpeed;
+            }
+        } else if (e.key === 's') {
+            if (paddle1.dy > paddleSpeed) {
+                paddle1.dy = paddleSpeed;
+            } else {
+                paddle1.dy += paddleSpeed;
+            }
         }
-    } else if (e.key === 's') {
-        if (paddle1.dy > paddleSpeed) {
-            paddle1.dy = paddleSpeed;
-        } else {
+    })
+
+    document.addEventListener('keyup', e => {
+        if (e.key === 'w') {
+            paddle1.dy = 0;
+        } else if (e.key === 's') {
+            paddle1.dy = 0;
+        }
+    })
+} else {
+    let touchY = 0;
+    canvas.addEventListener('touchstart', e => {
+        e.preventDefault();
+        touchY = e.changedTouches[0].clientY;
+        touchY = Number(touchY.toFixed(0));
+
+        const paddleCenter = paddle1.position.y + paddleHeight / 2;
+        if (touchY < (canvas.height / 2.5) / 2) {
+            paddle1.dy -= paddleSpeed;
+        } else if (touchY > (canvas.height / 2.5) / 2) {
             paddle1.dy += paddleSpeed;
         }
-    }
-})
+    })
 
-document.addEventListener('keyup', e => {
-    if (e.key === 'w') {
+    canvas.addEventListener('touchend', () => {
         paddle1.dy = 0;
-    } else if (e.key === 's') {
-        paddle1.dy = 0;
-    }
-})
+    })
+}
 
 drawStartScreen();
 startBtn.addEventListener('click', () => {
     resetGame();
 })
-
