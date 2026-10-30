@@ -56,3 +56,22 @@ body {
 .hidden {
     display: none;
 }
+
+@media (max-width: 600px) {
+    body {
+        display: flex;
+        flex-wrap: wrap-reverse;
+    }
+
+    #game {
+        width: 320px;
+        height: 240px;
+        margin: auto;
+    }
+
+    #start-btn {
+        left: 120px;
+        top: 150px;
+        width: 25%;
+    }
+}
