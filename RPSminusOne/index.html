@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors, Minus One</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="first-container">
+        <h1>Rock Paper Scissors, Minus One</h1>
+        <a href="../index.html">
+            <button id="back-btn">⬅ Go Back</button>
+        </a>
+    </div>
+    <div id="middle-container">
+        <div id="rps-game">
+            <div id="choices">
+                <button class="rps-choice" value="rock">
+                    <img src="./assets/hand-rock.png" alt="rock">
+                </button>
+                <button class="rps-choice" value="paper">
+                    <img src="./assets/hand-paper.png" alt="paper">
+                </button>
+                <button class="rps-choice" value="scissors">
+                    <img src="./assets/hand-scissors.png" alt="scissors">
+                </button>
+            </div>
+            <div id="chosen-options">
+            </div>
+            <div id="pre-game-buttons">
+                <button id="undo-btn">Undo</button>
+                <button id="confirm-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
