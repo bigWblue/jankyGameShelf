@@ -6,11 +6,12 @@
 A collection of simple browser-based games.
 
 ## Available Games
-+ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/snakeGame/README.md">Snake</a>
-+ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/ticTacToe/README.md">Tic-Tac-Toe</a>
-+ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/hangman/README.md">Hangman</a>
-+ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/simonSays/README.md">Simon Says</a>
-+ <a href="https://github.com/bigWblue/jankyGameShelf/blob/main/pong/README.md">Pong</a>
++ [Snake](https://github.com/bigWblue/jankyGameShelf/blob/main/snakeGame/README.md)
++ [Tic-Tac-Toe](https://github.com/bigWblue/jankyGameShelf/blob/main/ticTacToe/README.md)
++ [Hangman](https://github.com/bigWblue/jankyGameShelf/blob/main/hangman/README.md)
++ [Simon Says](https://github.com/bigWblue/jankyGameShelf/blob/main/simonSays/README.md)
++ [Pong](https://github.com/bigWblue/jankyGameShelf/blob/main/pong/README.md)
++ [Rock Paper Scissors, minus One](https://github.com/bigWblue/jankyGameShelf/blob/main/RPSminusOne/README.md)
 
 ## Future Game Ideas
 + Arkanoid
@@ -19,5 +20,5 @@ A collection of simple browser-based games.
 + Sudoku
 
 ## How to Play
-+ <a href="https://bigwblue.github.io/jankyGameShelf/" target="_blank">Open the Website</a>
++ [Open the Website](https://bigwblue.github.io/jankyGameShelf/)
 + Alternatively, clone this repository or download the latest release and in the main folder, open ```index.html``` on your browser.
